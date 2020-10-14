@@ -3,7 +3,7 @@ public class Person implements Comparable<Person>{
   private String fullName;
   private String residency;
   private boolean isMutualFriend;
-  private boolean isCurrentUser;
+
   private String bio;
   private RedBlackTree<Person> friendsList;
   
@@ -18,12 +18,12 @@ public class Person implements Comparable<Person>{
   }
   
   public Person(String fullName, String residencey,String bio, 
-      RedBlackTree<Person> friendList, boolean isCurrentUser, boolean isMutalFriend) {
+      RedBlackTree<Person> friendList, boolean isMutalFriend) {
     this.fullName = fullName;
     this.residency = residency;
     this.bio = bio;
     this.friendsList = friendList;
-    this.isCurrentUser = true;
+
     this.isMutualFriend = true;
   }
   

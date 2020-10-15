@@ -10,8 +10,7 @@ public class FriendFinder {
      * @param p
      */
     public CurrentUser(Person p){
-       super(p.getFullName(), p.getResidency(), p.getBio(), p.getFriendsList(), 
-           false);  
+       super(p.getFullName(), p.getResidency(), p.getBio(), p.getFriendsList());  
      }
      /**
       * Checks if this current user is freinds with the person P
@@ -27,7 +26,9 @@ public class FriendFinder {
      */
     @Override
      public boolean insertFriend(Person p) {
-       p.setMutualFriend(this.checkForMutualFriend(p)); 
+       if(masterList.contains(p)) {
+         
+       }
        return this.insertFriend(p);
      }
      
@@ -82,6 +83,7 @@ public class FriendFinder {
     FriendFinder f = new FriendFinder();
     f.updateCurrentUser("Lucas");
     System.out.println(f.curUser);
+    
   }
   
  

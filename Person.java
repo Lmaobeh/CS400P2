@@ -2,7 +2,7 @@
 public class Person implements Comparable<Person>{
   private String fullName;
   private String residency;
-  private boolean isMutualFriend;
+ 
 
   private String bio;
   private RedBlackTree<Person> friendsList;
@@ -18,13 +18,13 @@ public class Person implements Comparable<Person>{
   }
   
   public Person(String fullName, String residencey,String bio, 
-      RedBlackTree<Person> friendList, boolean isMutalFriend) {
+      RedBlackTree<Person> friendList) {
     this.fullName = fullName;
     this.residency = residency;
     this.bio = bio;
     this.friendsList = friendList;
 
-    this.isMutualFriend = true;
+   
   }
   
   
@@ -33,9 +33,7 @@ public class Person implements Comparable<Person>{
     return friendsList.contains(p);
   }
   
-  public void setMutualFriend(boolean isMutualFriend) {
-    this.isMutualFriend = isMutualFriend; 
-  }
+  
  
   
   public boolean insertFriend(Person p) {
@@ -105,10 +103,10 @@ public class Person implements Comparable<Person>{
   
   public String toString() {
     String str = "";
-    str += "[ Full Name: " + (this.fullName == null ? "null" : this.fullName) +"\n";
-    str += "Residency: " + (this.residency == null ? "null" : this.residency) + "\n";
-    str += "Bio: " + (this.bio == null ? "null" : this.bio) +"\n";
-    str += "Mutal friend? " + (this.isMutualFriend ? "Yes" : "No") + " ]\n";
+    str += "[ Full Name: " + (this.fullName == null ? " " : this.fullName) +"\n";
+    str += "  Residency: " + (this.residency == null ? " " : this.residency) + "\n";
+    str += "  Bio: " + (this.bio == null ? "null" : this.bio) +" ]\n";
+    
     
     return str;
   }

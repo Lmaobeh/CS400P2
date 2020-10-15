@@ -9,12 +9,14 @@ public class Person implements Comparable<Person>{
   
   public Person(String fullName) {
     this.fullName = fullName;
+    this.friendsList = new RedBlackTree<Person>();
   }
   
   public Person(String fullName, String residencey,String bio) {
     this.fullName = fullName;
     this.residency = residency;
     this.bio = bio;
+    this.friendsList = new RedBlackTree<Person>();
   }
   
   public Person(String fullName, String residencey,String bio, 
@@ -115,7 +117,10 @@ public class Person implements Comparable<Person>{
   
   public static void main(String[] args) {
     Person p = new Person("Lucas");
+    p.insertFriend(new Person("Lucas 2"));
+    p.insertFriend(new Person("Lucas 3"));
     System.out.println(p.toString());
+    System.out.println(p.getFriendsList().toString());
 
   }
 

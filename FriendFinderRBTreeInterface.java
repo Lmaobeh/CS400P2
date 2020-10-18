@@ -21,11 +21,11 @@ public interface FriendFinderRBTreeInterface {
    /**
    * Prints the people in alphabetical order
    */
-  public void printAllInOrder(); 
+  public String printAllInOrder(); 
    /**
    * Prints the people in level order
    */
-  public void printAllLevelOrder();
+  public String printAllLevelOrder();
    /**
     * takes a name and checks if the person exists
    * @param fullName the name of the person

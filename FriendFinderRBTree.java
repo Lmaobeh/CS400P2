@@ -1,26 +1,28 @@
+import java.io.Serializable;
 import java.util.LinkedList;
 
 
 /**
 @author Qosai Kadadha
 **/
-public class FriendFinderRBTree implements FriendFinderRBTreeInterface{
+public class FriendFinderRBTree implements FriendFinderRBTreeInterface, Serializable{
   private RedBlackTree<Person> tree = new RedBlackTree<Person>();
-  FriendFinderRBTree FriendFinder = new FriendFinderRBTree();
+  
   @Override
   public boolean insert(Person p) {
-    if(FriendFinder.contains(p.getFullName()))
-    FriendFinder.insert(p);
+    if(this.contains(p.getFullName()))
         return false;
+    tree.insert(p);
+    return true;
   }
 
   @Override
   public boolean insert(String fullName) {
     Person p = new Person(fullName);
-    if (FriendFinder.contains(fullName)) {
+    if (this.contains(fullName)) {
       return false;
     }
-    FriendFinder.insert(p);
+    tree.insert(p);
      return true; 
    }
  
@@ -76,11 +78,26 @@ public class FriendFinderRBTree implements FriendFinderRBTreeInterface{
 
   @Override
   public boolean contains(String fullName) {
+    if (fullName == null) return false;
     Person p = new Person(fullName);
-   if (tree.contains(p)) {
-     return true;
-   }
-   return false;
+    return containsHelper( tree.root, p);
+    
+  }
+  
+  private boolean containsHelper(RedBlackTree.Node<Person> node,Person p) {
+    if (node == null) return false;
+    int compare = p.compareTo(node.data);
+   
+    if (compare == 0 ) {
+      return true;
+    }
+    else if(compare < 0) {
+      return containsHelper(node.leftChild, p);
+    }
+    else {
+      return containsHelper(node.rightChild, p);
+    }
+
   }
 
   @Override
@@ -99,15 +116,15 @@ public class FriendFinderRBTree implements FriendFinderRBTreeInterface{
   @Override
   public Person lookup(String fullName) {
     Person p = new Person(fullName);
-    RedBlackTree.Node<Person> temp = tree.root.leftChild;
-    if (FriendFinder.contains(fullName) == false) {
+    RedBlackTree.Node<Person> temp = tree.root;
+    if (this.contains(fullName) == false) {
       return null;
     }
     while(true) { //compares fullName argument to every node in the tree until it finds the same name
       if (p.compareTo(temp.data) == 0) {
         return temp.data;
       }
-      if(p.compareTo(temp.data) < 0) {
+      else if(p.compareTo(temp.data) < 0) {
         temp = temp.leftChild;
         continue;
       }
@@ -122,6 +139,17 @@ public class FriendFinderRBTree implements FriendFinderRBTreeInterface{
   @Override
   public String getPersonData(String fullName) {
     return lookup(fullName).toString();
+  }
+  
+  public static void main(String[] args) {
+    FriendFinderRBTree f = new FriendFinderRBTree();
+    f.insert(new Person("Lucas"));
+    f.insert("Dabis:");
+    f.insert("Looook");
+    System.out.println(f.contains("g"));
+    System.out.println(f.contains("Looook"));
+    System.out.println(f.lookup("Looook"));
+    
   }
   
 }

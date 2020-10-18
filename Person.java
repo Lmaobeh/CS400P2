@@ -12,7 +12,7 @@ public class Person implements Comparable<Person>{
     this.friendsList = new RedBlackTree<Person>();
   }
   
-  public Person(String fullName, String residencey,String bio) {
+  public Person(String fullName, String residency,String bio) {
     this.fullName = fullName;
     this.residency = residency;
     this.bio = bio;

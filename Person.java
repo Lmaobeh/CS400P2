@@ -1,26 +1,26 @@
+import java.io.*;
 
-public class Person implements Comparable<Person>{
+public class Person implements Comparable<Person>, Serializable{
+  private static final long serialVersionUID = 42;
   private String fullName;
   private String residency;
- 
-
   private String bio;
-  private RedBlackTree<Person> friendsList;
+  private FriendFinderRBTree friendsList;
   
   public Person(String fullName) {
     this.fullName = fullName;
-    this.friendsList = new RedBlackTree<Person>();
+    this.friendsList = new FriendFinderRBTree();
   }
   
   public Person(String fullName, String residency,String bio) {
     this.fullName = fullName;
     this.residency = residency;
     this.bio = bio;
-    this.friendsList = new RedBlackTree<Person>();
+    this.friendsList = new FriendFinderRBTree();
   }
   
-  public Person(String fullName, String residencey,String bio, 
-      RedBlackTree<Person> friendList) {
+  public Person(String fullName, String residency,String bio, 
+      FriendFinderRBTree friendList) {
     this.fullName = fullName;
     this.residency = residency;
     this.bio = bio;
@@ -32,7 +32,7 @@ public class Person implements Comparable<Person>{
   
   
   public boolean hasFriend(Person p) {
-    return friendsList.contains(p);
+    return friendsList.contains(p.getFullName());
   }
   
   
@@ -99,15 +99,26 @@ public class Person implements Comparable<Person>{
     return this.fullName.equals(o.fullName);
   }
   
-  public RedBlackTree<Person> getFriendsList(){
+  public FriendFinderRBTree getFriendsList(){
     return this.friendsList;
+  }
+  
+  public void setFriendsList(FriendFinderRBTree friendsList) {
+    this.friendsList = friendsList;
+  }
+  
+  public void updateChanges(FriendFinder.CurrentUser c) {
+    this.setFullName(c.getFullName());
+    this.setResidency(c.getResidency());
+    this.setBio(c.getBio());
+    this.setFriendsList(c.getFriendsList());
   }
   
   public String toString() {
     String str = "";
     str += "[ Full Name: " + (this.fullName == null ? " " : this.fullName) +"\n";
     str += "  Residency: " + (this.residency == null ? " " : this.residency) + "\n";
-    str += "  Bio: " + (this.bio == null ? "null" : this.bio) +" ]\n";
+    str += "  Bio: " + (this.bio == null ? " " : this.bio) +" ]\n";
     
     
     return str;
@@ -120,7 +131,7 @@ public class Person implements Comparable<Person>{
     p.insertFriend(new Person("Lucas 2"));
     p.insertFriend(new Person("Lucas 3"));
     System.out.println(p.toString());
-    System.out.println(p.getFriendsList().toString());
+    System.out.println(p.getFriendsList());
 
   }
 

@@ -6,6 +6,7 @@
 // Lecturer: Florian Heimerl
 // Notes to Grader: <optional extra notes>
 import java.util.LinkedList;
+import java.io.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -14,13 +15,14 @@ import static org.junit.Assert.*;
  * binary search tree. You can use this class' insert method to build a binary search tree, and its
  * toString method to display the level order (breadth first) traversal of values in that tree.
  */
-public class RedBlackTree<T extends Comparable<T>> {
-
+public class RedBlackTree<T extends Comparable<T>> implements Serializable{
+  private static final long serialVersionUID = 43;
   /**
    * This class represents a node holding a single value within a binary tree the parent, left, and
    * right child references are always be maintained.
    */
-  protected static class Node<T> {
+  protected static class Node<T> implements Serializable {
+    private static final long serialVersionUID = 44;
     public T data;
     public Node<T> parent; // null for root node
     public Node<T> leftChild;
@@ -130,25 +132,9 @@ public class RedBlackTree<T extends Comparable<T>> {
     }
   }
   
-  public boolean contains(T data) {
-    if(data == null) return false;
-    return containsHelper(this.root, data);
-  }
+
   
-  public boolean containsHelper(Node<T> node, T data) {
-    if (node == null) return false;
-    int compare = data.compareTo(node.data);
-   
-    if (compare == 0 ) {
-      return true;
-    }
-    else if(compare < 0) {
-      return containsHelper(node.leftChild, data);
-    }
-    else {
-      return containsHelper(node.rightChild, data);
-    }
-  }
+
   
   
 
@@ -349,8 +335,7 @@ public class RedBlackTree<T extends Comparable<T>> {
     bst.insert(12);
     bst.insert(1);
     System.out.println(bst);
-    System.out.println(bst.contains(1));
-    System.out.println(bst.contains(0));
+    
 
 
 

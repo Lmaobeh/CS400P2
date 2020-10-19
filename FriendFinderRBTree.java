@@ -28,17 +28,17 @@ public class FriendFinderRBTree implements FriendFinderRBTreeInterface, Serializ
  
 
   @Override
-  public void printAllInOrder() {
+  public String printAllInOrder() {
    RedBlackTree.Node<Person> temp = tree.root;
    while(temp.leftChild != null) { //while loop that sets tree pointer to Person who is first alphabetically
      temp = temp.leftChild;
    }
-    System.out.print("[" + temp.data.toString() + ", ");
-    String output = "[" + temp.data.toString() + ", ";
+   String output = temp.data.toString();
     temp = temp.parent;
     while(true) {
-      System.out.print(temp.data.toString() + ", ");
-      output = temp.data.toString() + ", "; 
+      if(!output.contains(temp.data.toString())){
+      output += temp.data.toString(); 
+      }
       if((temp.leftChild != null) && (!output.contains(temp.leftChild.data.toString()))) {
         temp = temp.leftChild;
         continue;
@@ -53,25 +53,26 @@ public class FriendFinderRBTree implements FriendFinderRBTreeInterface, Serializ
       }
     break;
     }
-    System.out.print("]");
+    return output;
   }
 
   @Override
-  public void printAllLevelOrder() {
+  public String printAllLevelOrder() {
     LinkedList<RedBlackTree.Node<Person>> q = new LinkedList<>();
+    String output = "";
     q.add(tree.root);
-    System.out.print("[");
+    
     while (!q.isEmpty()) {
       RedBlackTree.Node<Person> next = q.removeFirst();
-      if (next.leftChild != null)
+      if (next.leftChild != null) {
         q.add(next.leftChild);
-      if (next.rightChild != null)
+      }
+      if (next.rightChild != null) {
         q.add(next.rightChild);
-      System.out.println(next.data.toString());
-      if (!q.isEmpty())
-        System.out.print(", ");
+      }  
+      output += next.data.toString();
     }
-    System.out.print("]");
+    return output;
   }
     
   
@@ -146,9 +147,10 @@ public class FriendFinderRBTree implements FriendFinderRBTreeInterface, Serializ
     f.insert(new Person("Lucas"));
     f.insert("Dabis:");
     f.insert("Looook");
-    System.out.println(f.contains("g"));
-    System.out.println(f.contains("Looook"));
-    System.out.println(f.lookup("Looook"));
+   //System.out.println(f.contains("g"));
+   //System.out.println(f.contains("Looook"));
+   //System.out.println(f.lookup("Looook"));
+   System.out.println(f.printAllInOrder());
     
   }
   

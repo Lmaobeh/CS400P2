@@ -29,6 +29,9 @@ public class FriendFinderRBTree implements FriendFinderRBTreeInterface, Serializ
 
   @Override
   public String printAllInOrder() {
+    if(isEmpty()) {
+      return "Tree is Empty, cannot print empty tree";
+    }
    RedBlackTree.Node<Person> temp = tree.root;
    while(temp.leftChild != null) { //while loop that sets tree pointer to Person who is first alphabetically
      temp = temp.leftChild;
@@ -58,6 +61,9 @@ public class FriendFinderRBTree implements FriendFinderRBTreeInterface, Serializ
 
   @Override
   public String printAllLevelOrder() {
+    if(isEmpty()) {
+      return "Tree is Empty, cannot print empty tree";
+    }
     LinkedList<RedBlackTree.Node<Person>> q = new LinkedList<>();
     String output = "";
     q.add(tree.root);

@@ -148,6 +148,11 @@ public class FriendFinderRBTree implements FriendFinderRBTreeInterface, Serializ
     return lookup(fullName).toString();
   }
   
+  @Override
+  public String toString() {
+    return this.printAllLevelOrder();
+  }
+  
   public static void main(String[] args) {
     FriendFinderRBTree f = new FriendFinderRBTree();
     f.insert(new Person("Lucas"));

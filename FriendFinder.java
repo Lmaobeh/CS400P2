@@ -11,6 +11,8 @@ public class FriendFinder implements Serializable {
     /**
      * Checks if the user is in this program. If they are their profile is loaded
      * If they are not a new profile is creates
+     * **tester: test that a person is added if they don't exist, and that
+     * their data is loaded if they do.
      * @param name
      */
     public CurrentUser(String name) {  
@@ -28,6 +30,7 @@ public class FriendFinder implements Serializable {
      }
      /**
       * Checks if this current user is freinds with the person P
+      * ** tests that returns true if they are mutal or false if they arent
      * @param p
      * @return
      */
@@ -37,6 +40,10 @@ public class FriendFinder implements Serializable {
      
      /**
      *Inserts a friend and sets mutual friend status
+     ***tests that a person that is already in the application is properly loaded
+     *into the current users friend list and if they are not in the application a profile is made
+     *Tests throwing an exception if the key already exists
+     *
      */
     @Override
      public boolean insertFriend(Person p) {
@@ -53,6 +60,7 @@ public class FriendFinder implements Serializable {
      
      /**
      *Prints the current use to string
+     *
      */
     @Override
      public String toString() {
@@ -66,6 +74,7 @@ public class FriendFinder implements Serializable {
     
     /**
      * writes the possibly saved data to the list.
+     * ** test that this saves changed data to the master list
      */
     public void saveCurrentUser() {
       Person p = masterList.lookup(this.getFullName());
@@ -79,11 +88,12 @@ public class FriendFinder implements Serializable {
   }
    
   
-  private FriendFinderRBTree masterList;
-  private CurrentUser curUser;
+  public FriendFinderRBTree masterList;
+  public CurrentUser curUser;
   
   /**
    * Loads from a saved file
+   * 
    * @param savedData
    */
   @SuppressWarnings("unchecked")
@@ -94,6 +104,7 @@ public class FriendFinder implements Serializable {
        os = new ObjectInputStream(fileStream);
     } catch(EOFException e) {
       masterList = new FriendFinderRBTree();
+      os.close();
       return;
     }
    
@@ -120,6 +131,8 @@ public class FriendFinder implements Serializable {
   /**
    * Updates the current user, by getting them from the master list or by
    * making a new one.
+   * ** test getting the persons profile or making a new one, also the existance 
+   * of a taken profile
    * @param name Name of there new user
    */
   public void updateCurrentUser(String name) {
@@ -143,6 +156,7 @@ public class FriendFinder implements Serializable {
   public void exitAndSave(String fileName) throws FileNotFoundException, IOException{
     FileOutputStream fileStream = new FileOutputStream(fileName);
     ObjectOutputStream os = new ObjectOutputStream(fileStream);
+    curUser.saveCurrentUser();
     os.writeObject(masterList);
     os.close();   
   }
@@ -159,13 +173,17 @@ public class FriendFinder implements Serializable {
 //    
 //    app.updateCurrentUser("Lucas");
 //    app.curUser.insertFriend(new Person("2"));
+    
+    app.updateCurrentUser("Lucas");
+    
+    app.curUser.setBio("Bitch");
+    app.curUser.insertFriend(new Person("davis"));
     System.out.println(app.masterList);
-//    System.out.println(app.curUser);
-//    try {
-//    app.exitAndSave("FriendFinder.ser");
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//    }
+    try {
+    app.exitAndSave("FriendFinder.ser");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
 
     
     

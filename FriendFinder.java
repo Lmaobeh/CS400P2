@@ -9,20 +9,7 @@ public class FriendFinder implements Serializable {
    class CurrentUser extends Person implements Serializable {
     
     /**
-     * Checks if the user is in this program. If they are their profile is loaded
-     * If they are not a new profile is creates
-     * **tester: test that a person is added if they don't exist, and that
-     * their data is loaded if they do.
-     * @param name
-     */
-    public CurrentUser(String name) {  
-        this (masterList.contains(name) ? masterList.lookup(name) 
-            : new Person(name));
-        masterList.insert(new Person(name));
-     
-    }
-    /**
-     * Instantiates a current user with the fields of the person param
+     * Instantiates a current user with the fields of the person
      * @param p
      */
     public CurrentUser(Person p){
@@ -141,7 +128,6 @@ public class FriendFinder implements Serializable {
       curUser = new CurrentUser(this.masterList.lookup(name));
       return;
     }
-     
      curUser = new CurrentUser(new Person(name));
      masterList.insert(new Person(name));  
   }
@@ -160,36 +146,34 @@ public class FriendFinder implements Serializable {
     os.writeObject(masterList);
     os.close();   
   }
-  public static void main(String[] args) {
-    FriendFinder app = null;
-    
-    try {
-      app = new FriendFinder("FriendFinder.ser");
-      
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    
+//  public static void main(String[] args) {
+//    FriendFinder app = null;
+//    
+//    try {
+//      app = new FriendFinder("FriendFinder.ser");
+//      
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
+//    
+////    
+////    app.updateCurrentUser("Lucas");
+////    app.curUser.insertFriend(new Person("2"));
 //    
 //    app.updateCurrentUser("Lucas");
-//    app.curUser.insertFriend(new Person("2"));
-    
-    app.updateCurrentUser("Lucas");
-    
-    app.curUser.setBio("Bitch");
-    app.curUser.insertFriend(new Person("davis"));
-    System.out.println(app.masterList);
-    try {
-    app.exitAndSave("FriendFinder.ser");
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
-    
-    
-    
-  }
-  
- 
-  
+//    
+//    app.curUser.setBio("Bitch");
+//    app.curUser.insertFriend(new Person("davis"));
+//    System.out.println(app.masterList);
+//    try {
+//    app.exitAndSave("FriendFinder.ser");
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
+//
+//    
+//    
+//    
+//  }
 }
+//

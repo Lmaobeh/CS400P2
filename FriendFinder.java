@@ -4,12 +4,14 @@ import java.io.*;
  * @author Lucas
  *
  */
-public class FriendFinder implements Serializable {
+public class FriendFinder  {
+ 
 
-   class CurrentUser extends Person implements Serializable {
+   class CurrentUser extends Person  {
     
+
     /**
-     * Instantiates a current user with the fields of the person
+     * Instantiates a current user with the fields of the person param
      * @param p
      */
     public CurrentUser(Person p){
@@ -21,7 +23,7 @@ public class FriendFinder implements Serializable {
      * @param p
      * @return
      */
-    private boolean checkForMutualFriend(Person p) {
+    public boolean checkForMutualFriend(Person p) {
        return this.hasFriend(p) && p.hasFriend(this);
      }
      
@@ -67,9 +69,18 @@ public class FriendFinder implements Serializable {
       Person p = masterList.lookup(this.getFullName());
       p.updateChanges(this);
       
-      
-  
     }
+    @Override
+    public void setResidency(String residency) {
+      super.setResidency(residency);
+      this.saveCurrentUser();
+    }
+    
+    public void setBio(String bio) {
+      super.setBio(bio);
+      this.saveCurrentUser();
+    }
+    
      
     
   }
@@ -89,23 +100,27 @@ public class FriendFinder implements Serializable {
     ObjectInputStream os = null;
     try {
        os = new ObjectInputStream(fileStream);
+       //catches EOFException if the serialization file is empty
+       //Makes a new master list.
     } catch(EOFException e) {
       masterList = new FriendFinderRBTree();
-      os.close();
+      fileStream.close();
       return;
-    }
-   
+    } 
+    //gets object and casts it down to a FriendFinderRBTree
     Object o = os.readObject();
     FriendFinderRBTree tree = (FriendFinderRBTree) o;
  
     if (o == null) {  
       masterList= new FriendFinderRBTree();
+      fileStream.close();
       os.close();
       return; 
     }
     
     masterList = tree ;
     os.close();
+    fileStream.close();
     
   }
   
@@ -128,6 +143,7 @@ public class FriendFinder implements Serializable {
       curUser = new CurrentUser(this.masterList.lookup(name));
       return;
     }
+     
      curUser = new CurrentUser(new Person(name));
      masterList.insert(new Person(name));  
   }
@@ -144,36 +160,39 @@ public class FriendFinder implements Serializable {
     ObjectOutputStream os = new ObjectOutputStream(fileStream);
     curUser.saveCurrentUser();
     os.writeObject(masterList);
-    os.close();   
+    os.close(); 
+    fileStream.close();
   }
-//  public static void main(String[] args) {
-//    FriendFinder app = null;
-//    
-//    try {
-//      app = new FriendFinder("FriendFinder.ser");
-//      
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//    }
-//    
-////    
-////    app.updateCurrentUser("Lucas");
-////    app.curUser.insertFriend(new Person("2"));
+  public static void main(String[] args) {
+    FriendFinder app = null;
+    
+    try {
+      app = new FriendFinder("FriendFinder.ser");
+      
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    
 //    
 //    app.updateCurrentUser("Lucas");
-//    
-//    app.curUser.setBio("Bitch");
-//    app.curUser.insertFriend(new Person("davis"));
-//    System.out.println(app.masterList);
-//    try {
-//    app.exitAndSave("FriendFinder.ser");
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//    }
-//
-//    
-//    
-//    
-//  }
+//    app.curUser.insertFriend(new Person("2"));
+    
+    app.updateCurrentUser("Lucas");
+    
+    app.curUser.setBio("Bitch");
+    app.curUser.insertFriend(new Person("davis"));
+    System.out.println(app.masterList);
+    try {
+    app.exitAndSave("FriendFinder.ser");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    
+    
+    
+  }
+  
+ 
+  
 }
-//

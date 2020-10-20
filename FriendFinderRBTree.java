@@ -7,15 +7,25 @@ import java.util.LinkedList;
 **/
 public class FriendFinderRBTree implements FriendFinderRBTreeInterface, Serializable{
   private RedBlackTree<Person> tree = new RedBlackTree<Person>();
-  
+   /**
+    * Inserts a person into the red black tree, the person objects name is the 
+    * key. No duplicate keys
+   * @param p the person object to insert
+   * @return true if added, false if not added
+   */
   @Override
-  public boolean insert(Person p) {
+  public boolean insert(Person p) { 
     if(this.contains(p.getFullName()))
         return false;
     tree.insert(p);
     return true;
   }
-
+/**
+    * Insets a person based on the name. This will make a person object and 
+    * instantiate with the name
+   * @param fullName the person objects name
+   * @return true if added, false if already exists
+   */
   @Override
   public boolean insert(String fullName) {
     Person p = new Person(fullName);
@@ -26,10 +36,13 @@ public class FriendFinderRBTree implements FriendFinderRBTreeInterface, Serializ
      return true; 
    }
  
-
+/**
+   * Prints the people in alphabetical order
+   @return String variable that contains person objects in alphabetical order
+   */
   @Override
   public String printAllInOrder() {
-    if(isEmpty()) {
+    if(isEmpty()) { //ensures tree is not empty before attempting to print 
       return "Tree is Empty, cannot print empty tree";
     }
    RedBlackTree.Node<Person> temp = tree.root;
@@ -38,19 +51,19 @@ public class FriendFinderRBTree implements FriendFinderRBTreeInterface, Serializ
    }
    String output = temp.data.toString();
     temp = temp.parent;
-    while(true) {
-      if(!output.contains(temp.data.toString())){
+    while(true) { //loop runs until it runs out of nodes to check in tree
+      if(!output.contains(temp.data.toString())){ //puts node in output string if it isn't already in the string
       output += temp.data.toString(); 
       }
-      if((temp.leftChild != null) && (!output.contains(temp.leftChild.data.toString()))) {
+      if((temp.leftChild != null) && (!output.contains(temp.leftChild.data.toString()))) { //checks if leftchild exists and is not in string than return to start of loop with leftchild
         temp = temp.leftChild;
         continue;
       }
-      if((temp.rightChild != null) && (!output.contains(temp.rightChild.data.toString()))) {
+      if((temp.rightChild != null) && (!output.contains(temp.rightChild.data.toString()))) {//checks if rightchild exists and is not in string than return to start of loop with leftchild
         temp = temp.rightChild;
         continue;
       }
-      if(!output.contains(temp.parent.data.toString())) {
+      if(!output.contains(temp.parent.data.toString())) {//checks if parent is in string and returns to start of loop if not within string
         temp = temp.parent;
         continue;
       }
@@ -58,10 +71,13 @@ public class FriendFinderRBTree implements FriendFinderRBTreeInterface, Serializ
     }
     return output;
   }
-
+ /**
+   * Prints the tree in level order
+   @return String variable that contains tree in level order
+   */
   @Override
   public String printAllLevelOrder() {
-    if(isEmpty()) {
+    if(isEmpty()) { //ensures tree is not empty before attempting to print 
       return "Tree is Empty, cannot print empty tree";
     }
     LinkedList<RedBlackTree.Node<Person>> q = new LinkedList<>();
@@ -82,7 +98,11 @@ public class FriendFinderRBTree implements FriendFinderRBTreeInterface, Serializ
   }
     
   
-
+ /**
+    * takes a name and checks if the person exists
+   * @param fullName the name of the person
+   * @return true if name is inside tree, false otherwise
+   */
   @Override
   public boolean contains(String fullName) {
     if (fullName == null) return false;
@@ -90,7 +110,7 @@ public class FriendFinderRBTree implements FriendFinderRBTreeInterface, Serializ
     return containsHelper( tree.root, p);
     
   }
-  
+  //private recursive helper method for contains
   private boolean containsHelper(RedBlackTree.Node<Person> node,Person p) {
     if (node == null) return false;
     int compare = p.compareTo(node.data);
@@ -106,7 +126,10 @@ public class FriendFinderRBTree implements FriendFinderRBTreeInterface, Serializ
     }
 
   }
-
+/**
+    * checks if tree has any elements 
+   * @return true if empty, false if not empty
+   */
   @Override
   public boolean isEmpty() {
     try {
@@ -119,7 +142,11 @@ public class FriendFinderRBTree implements FriendFinderRBTreeInterface, Serializ
       return true;
     }
   }
-
+/**
+    * Looks up and returns the person object based on the name
+   * @param fullName the name of the person
+   * @return person object
+   */
   @Override
   public Person lookup(String fullName) {
     Person p = new Person(fullName);
@@ -142,7 +169,11 @@ public class FriendFinderRBTree implements FriendFinderRBTreeInterface, Serializ
     }
     
   }
-
+/**
+    * Gets the string representation of the person object based on the name
+   * @param fullName the name of the person
+   * @return string representaion of the person
+   */
   @Override
   public String getPersonData(String fullName) {
     return lookup(fullName).toString();
@@ -152,16 +183,6 @@ public class FriendFinderRBTree implements FriendFinderRBTreeInterface, Serializ
   public String toString() {
     return this.printAllLevelOrder();
   }
-  
-  public static void main(String[] args) {
-    FriendFinderRBTree f = new FriendFinderRBTree();
-    f.insert(new Person("Lucas"));
-    f.insert("Dabis:");
-    f.insert("Looook");
-   //System.out.println(f.contains("g"));
-   //System.out.println(f.contains("Looook"));
-   //System.out.println(f.lookup("Looook"));
-   System.out.println(f.printAllInOrder());
     
   }
   

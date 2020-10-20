@@ -12,6 +12,9 @@ import java.io.*;
  *
  */
 public class Person implements Comparable<Person>, Serializable {
+  /**
+   *Used for serialization
+   */
   private static final long serialVersionUID = 42;
   private String fullName;
   private String residency;

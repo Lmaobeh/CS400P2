@@ -7,6 +7,7 @@ import java.util.LinkedList;
 **/
 public class FriendFinderRBTree implements FriendFinderRBTreeInterface, Serializable{
   private RedBlackTree<Person> tree = new RedBlackTree<Person>();
+  private static final long serialVersionUID = 40;
    /**
     * Inserts a person into the red black tree, the person objects name is the 
     * key. No duplicate keys

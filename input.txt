@@ -1,0 +1,6 @@
+"Sam", "I'm Sam", "Madison", "Jeff, John, Lisa, Richard"
+"Dan", "", "Madison", "Joe, John, Bob, Richard"
+"Bill", "", "Verona", "Steve, Phil"
+"Jill", "", "Madison", "Jeff, John, Lisa, Richard"
+"Jess", "I'm Jess", "Milwaukee", "Jeff, Jill, Lisa"
+"Jackie", "", "Madison", "Monica, Sam, Lisa, Sherry"

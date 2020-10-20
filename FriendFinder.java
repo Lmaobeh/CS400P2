@@ -158,40 +158,42 @@ public class FriendFinder  {
   public void exitAndSave(String fileName) throws FileNotFoundException, IOException{
     FileOutputStream fileStream = new FileOutputStream(fileName);
     ObjectOutputStream os = new ObjectOutputStream(fileStream);
+    if(curUser != null) {
     curUser.saveCurrentUser();
+    }
     os.writeObject(masterList);
     os.close(); 
     fileStream.close();
   }
-  public static void main(String[] args) {
-    FriendFinder app = null;
-    
-    try {
-      app = new FriendFinder("FriendFinder.ser");
-      
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    
+//  public static void main(String[] args) {
+//    FriendFinder app = null;
+//    
+//    try {
+//      app = new FriendFinder("FriendFinder.ser");
+//      
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
+//    
+////    
+////    app.updateCurrentUser("Lucas");
+////    app.curUser.insertFriend(new Person("2"));
 //    
 //    app.updateCurrentUser("Lucas");
-//    app.curUser.insertFriend(new Person("2"));
-    
-    app.updateCurrentUser("Lucas");
-    
-    app.curUser.setBio("Bitch");
-    app.curUser.insertFriend(new Person("davis"));
-    System.out.println(app.masterList);
-    try {
-    app.exitAndSave("FriendFinder.ser");
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
+//    
+//    app.curUser.setBio("Bitch");
+//    app.curUser.insertFriend(new Person("davis"));
+//    System.out.println(app.masterList);
+//    try {
+//    app.exitAndSave("FriendFinder.ser");
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
+//
+//    
     
     
-    
-  }
+//  }
   
  
   

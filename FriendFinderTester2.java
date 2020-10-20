@@ -208,22 +208,34 @@ class FriendFinderTester2 {
     }
   }
   
- // @Test 
-//  void testSave() {
-//    try {
-//      FriendFinder app = new FriendFinder("FriendFinder.ser");
-//      app.masterList.insert("Paula");
+  /**
+   * Tests to see if the .ser file can be readin, modified, saved, read-in and still have changes
+   */
+  @Test 
+  void testSave() {
+    try {
+      //Make FriendFinder with .ser file
+      FriendFinder app = new FriendFinder("FriendFinder.ser");
+      //Make change
+      app.masterList.insert("Paula");
 //      System.out.println("Good");
-//      app.exitAndSave("FriendFinder.ser");
-//      app = new FriendFinder("FriendFinder.ser");
-//      if(!app.masterList.contains("Paula")) {
-//        fail("Paula wasn't saved from the last save");
-//      }
-//    }
-//    catch(Exception e) {
+      //Save
+      app.exitAndSave("FriendFinder.ser");
+      //Recreate
+      app = new FriendFinder("FriendFinder.ser");
+      //Test if Paula was saved
+      if(!app.masterList.contains("Paula")) {
+        fail("Paula wasn't saved from the last save");
+      }
+    }
+    //EOF happens if exception occurs during save
+    catch(java.io.EOFException e) {
 //    System.out.println("Something went bad: " + e.getMessage());
 //    e.printStackTrace();
-//    fail("Serialization was not setup properly");
-//    }
-//  }
+    fail(".ser file is not formatted properly. Attempt fix by replacing .ser with fresh file from git");
+    }
+    catch(Exception e) {
+      fail("Save did not go as planned");
+    }
+  }
 }

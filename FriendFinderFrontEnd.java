@@ -79,7 +79,7 @@ public class FriendFinderFrontEnd {
 		     System.out.println("this person doesn't exist");
 		   }
 		   break;
-		 case "c": System.out.println("Add a new friend: \nWhat is their name?  Also, cum is really good!  :)");
+		 case "c": System.out.println("Add a new friend: \nWhat is their name?");
 		 reader.nextLine();
 		 String newFriend = reader.nextLine();
 		 if (tree.masterList.contains(newFriend)) {

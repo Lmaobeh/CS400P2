@@ -208,7 +208,7 @@ class FriendFinderTester2 {
   }
 
   /**
-   * Tests to see if the file FriendFinderTest.ser can be read in properly for editing
+   * Tests to see if the file FriendFinder.ser can be read in properly for editing
    */
   @Test
   void testReadIn() {
@@ -224,11 +224,9 @@ class FriendFinderTester2 {
 
   /**
    * Tests to see if the .ser file can be readin, modified, saved, read-in and still have changes
-   * Tests if the full object is saved
    */
   @Test
   void testSave() {
-    //
     try {
       // Make FriendFinder with .ser file
       FriendFinder app = new FriendFinder("FriendFinderTest.ser");
@@ -236,7 +234,7 @@ class FriendFinderTester2 {
       app.masterList.insert("Paula");
       // System.out.println("Good");
       // Save
-      app.exitAndSave("FriendFinderTest.ser");
+      app.exitAndSave("FriendFinder.ser");
       // Recreate
       app = new FriendFinder("FriendFinderTest.ser");
       // Test if Paula was saved
@@ -251,44 +249,7 @@ class FriendFinderTester2 {
       fail(
           ".ser file is not formatted properly. Attempt fix by replacing .ser with fresh file from git");
     } catch (Exception e) {
-      e.printStackTrace();
       fail("Save did not go as planned");
     }
-    //tests adding further people and updating things 
-    
-    
-    try {
-      // Make FriendFinder with .ser file
-      FriendFinder app = new FriendFinder("FriendFinderTest.ser");
-      //update current user
-      app.updateCurrentUser("Paula");
-      // Make change
-      app.curUser.insertFriend(new Person("Paul"));
-      app.curUser.setBio("Very nice");
-      
-      // Save
-      app.exitAndSave("FriendFinderTest.ser");
-      // Recreate
-      app = new FriendFinder("FriendFinderTest.ser");
-      // Test if Paul was saved
-      if (!app.masterList.contains("Paul")) {
-        fail("Paul wasn't saved from the last save");
-      }
-      //tests if paula bio is saved
-      assertEquals(app.masterList.lookup("Paula").getBio(), "Very nice");
-      
-    }
-    // EOF happens if exception occurs during save
-    catch (java.io.EOFException e) {
-      // System.out.println("Something went bad: " + e.getMessage());
-      // e.printStackTrace();
-      fail(
-          ".ser file is not formatted properly. Attempt fix by replacing .ser with fresh file from git");
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail("Save did not go as planned");
-    }
-    
   }
-  
 }

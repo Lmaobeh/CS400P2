@@ -17,7 +17,7 @@ class FriendFinderTester {
 	void testCheckForMutualFriend() {
 		FriendFinderRBTree taylorTree = new FriendFinderRBTree();
 	    taylorTree.insert("Bryan Waters");
-	    FriendFinderRBTree sherleyTree = new FriendFinderRBTree();
+	    FriendFinderRBTree bryanTree = new FriendFinderRBTree();
 	    bryanTree.insert("Taylor Towers");
 	    Person taylor = new Person("Taylor Towers", "Lady", "Madison Avenue", taylorTree);
 	    Person bryan = new Person("Bryan Waters", "Dude", "Lakeshore Path", bryanTree);

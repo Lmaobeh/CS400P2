@@ -2,9 +2,14 @@ import java.io.Serializable;
 import java.util.LinkedList;
 
 
-/**
-@author Qosai Kadadha
-**/
+// --== CS400 File Header Information ==--
+// Name: Qosai Kadadha
+// Email: kadadha@wisc.edu
+// Team: NE
+// Role: Backend Developer
+// TA: Daniel Finer
+// Lecturer: Florian Heimerl
+// Notes to Grader: <optional extra notes>
 public class FriendFinderRBTree implements FriendFinderRBTreeInterface, Serializable{
   private RedBlackTree<Person> tree = new RedBlackTree<Person>();
   private static final long serialVersionUID = 40;
